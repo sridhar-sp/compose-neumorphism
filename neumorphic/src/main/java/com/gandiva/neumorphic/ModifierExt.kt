@@ -50,20 +50,21 @@ fun ContentDrawScope.drawBlurredBackground(
     cornerShape: CornerShape
 ) {
     drawIntoCanvas { canvas ->
-        val blurRadius = elevation
+
+        val blurRadius = elevation * .95f
+        val displacement = elevation * .6f
 
         if (blurRadius <= 0)
             return@drawIntoCanvas
 
-        val paint = Paint().also { paint ->
-            paint.asFrameworkPaint().also { nativePaint ->
+        val paint = Paint().also { p ->
+            p.asFrameworkPaint().also { nativePaint ->
                 nativePaint.isAntiAlias = true
+                nativePaint.isDither = true
                 nativePaint.color = color
                 nativePaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
             }
         }
-
-        val displacement = elevation / 2f
 
         val backgroundOffset = when (lightSource) {
             LightSource.LEFT_TOP -> Offset(-displacement, -displacement)
@@ -115,12 +116,12 @@ fun ContentDrawScope.drawForeground(
         if (elevation <= 0)
             return@drawIntoCanvas
 
-        val blurRadius = elevation / 1.5f
+        val blurRadius = elevation * 0.6f
         val strokeWidth = elevation * .95f
 
         val paint = Paint().also { p ->
             p.asFrameworkPaint().also { nativePaint ->
-//                nativePaint.isAntiAlias = true
+                nativePaint.isAntiAlias = true
                 nativePaint.color = color
                 nativePaint.strokeWidth = strokeWidth
                 nativePaint.style = android.graphics.Paint.Style.STROKE
