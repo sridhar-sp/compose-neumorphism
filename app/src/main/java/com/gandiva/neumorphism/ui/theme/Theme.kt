@@ -9,46 +9,31 @@ import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
     primary = AppColors.Purple200,
-    primaryVariant = AppColors.Purple700,
-    secondary = AppColors.Teal200,
+    onPrimary = Color.White,
 
-//    background = WidgetBackground,
-//    surface = WidgetBackground,
-////    onPrimary = Color.White,
-////    onSecondary = Color.Black,
-//    onBackground = Color.White,
-//    onSurface = Color.White,
+    secondary = AppColors.Purple500,
+
+    background = AppColors.Dark.Background,
+    onBackground = Color.White,
+    surface = AppColors.Dark.Background,
+    onSurface = Color.White,
 )
 
 private val LightColorPalette = lightColors(
     primary = AppColors.Purple200,
     onPrimary = Color.Black,
 
-//    primaryVariant = AppColors.Purple700,
-//    secondaryVariant = AppColors.WidgetBackground,
     secondary = AppColors.Purple500,
-//    onSecondary = AppColors.WidgetBackground,
 
-
-    background = AppColors.Gainsboro,
+    background = AppColors.Light.Background,
     onBackground = Color.Black,
-    surface = AppColors.Gainsboro,
+    surface = AppColors.Light.Background,
     onSurface = Color.Black,
-
-//    error = Color(0xFFB00020),
-//    onPrimary = Color.Black,
-//    onError = Color.Black,
-
-//    onPrimary = Color.White,
-//    onSecondary = Color.Black,
-//    onBackground = Color.Black,
-//    onSurface = Color.Black,
-//    onError = Color.White
 )
 
 @Composable
-fun NeumorphismTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
-    val colors = if (darkTheme) {
+fun NeumorphismTheme(isDarkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+    val colors = if (isDarkTheme) {
         DarkColorPalette
     } else {
         LightColorPalette
@@ -56,7 +41,7 @@ fun NeumorphismTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compo
 
     MaterialTheme(
         colors = colors,
-        typography = Typography,
+        typography = getTypography(isDarkTheme),
         shapes = Shapes,
         content = content
     )

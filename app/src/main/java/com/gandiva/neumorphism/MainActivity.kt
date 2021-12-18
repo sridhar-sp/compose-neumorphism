@@ -3,7 +3,9 @@ package com.gandiva.neumorphism
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,26 +31,60 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            NeumorphismTheme(darkTheme = false) {
+            var isDarkTheme by remember {
+                mutableStateOf(true)
+            }
+            NeumorphismTheme(isDarkTheme = isDarkTheme) {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .verticalScroll(rememberScrollState()),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        InputBoxWithCardWrapper()
-                        PlainInputBox()
-                        CheckBoxAndRadioButtons()
-                        PressedSlider()
-                        FlatSlider()
-                        PressedButton()
-                        FlatButton()
-                        CircleActionButton()
+                    Column {
+                        TitleWithThemeToggle(
+                            title = getString(R.string.app_name),
+                            isDarkTheme = isDarkTheme
+                        ) {
+                            isDarkTheme = !isDarkTheme
+                        }
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .verticalScroll(rememberScrollState()),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            InputBoxWithCardWrapper()
+                            PlainInputBox()
+                            CheckBoxAndRadioButtons()
+                            PressedSlider()
+                            FlatSlider()
+                            PressedButton()
+                            FlatButton()
+                            CircleActionButton()
+                        }
                     }
+
                 }
             }
         }
+    }
+}
+
+@Composable
+fun TitleWithThemeToggle(title: String, isDarkTheme: Boolean, onThemeToggle: () -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = defaultWidgetPadding),
+            text = title,
+            style = AppTextStyle.body1(), maxLines = 1
+        )
+        ImageButton(
+            modifier = Modifier.padding(defaultWidgetPadding),
+            drawableResId = if (isDarkTheme) R.drawable.ic_baseline_light_mode
+            else R.drawable.ic_baseline_dark_mode_24,
+            contentDescription = "Toggle theme",
+            onClick = onThemeToggle
+        )
     }
 }
 
@@ -122,7 +158,7 @@ fun PlainInputBox() {
             ) {
                 Icon(painter = painterResource(id = R.drawable.ic_baseline_search_24), contentDescription = "Search")
                 Spacer(modifier = Modifier.size(16.dp))
-                Text(text = "Search", style = AppTextStyle.body1Hint(), maxLines = 2)
+                Text(text = "Search", style = AppTextStyle.body1Hint())
             }
         },
     )
@@ -396,12 +432,41 @@ fun CircleActionButton() {
     }
 }
 
+@Composable
+fun ImageButton(
+    modifier: Modifier,
+    @DrawableRes drawableResId: Int,
+    contentDescription: String = "",
+    onClick: () -> Unit
+) {
+    Card(
+        modifier = modifier
+            .size(48.dp)
+            .neu(
+                lightShadowColor = AppColors.lightShadow(),
+                darkShadowColor = AppColors.darkShadow(),
+                shadowElevation = defaultElevation,
+                lightSource = LightSource.LEFT_TOP,
+                shape = Flat(Oval),
+            ),
+        elevation = 0.dp,
+        shape = RoundedCornerShape(24.dp),
+    ) {
+        Image(
+            modifier = Modifier.clickable(true, onClick = onClick),
+            painter = painterResource(id = drawableResId),
+            contentDescription = contentDescription,
+            contentScale = ContentScale.Inside,
+            colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
+        )
+    }
+}
+
 @Preview
 @Composable
 fun Dropdown() {
     var expanded by remember { mutableStateOf(false) }
     val items = listOf("A", "B", "C", "D", "E", "F")
-    val disabledValue = "B"
     var selectedIndex by remember { mutableStateOf(0) }
     Box(
         modifier = Modifier

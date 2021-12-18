@@ -1,5 +1,6 @@
 package com.gandiva.neumorphism.ui.theme
 
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
@@ -36,29 +37,36 @@ private val fontFamily = FontFamily(
     )
 )
 
-// Set of Material typography styles to start with
-val Typography = Typography(
-    body1 = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 18.sp
-    ),
-    body2 = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
-    ),
-    button = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.W500,
-        fontSize = 16.sp
-    ),
-    caption = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
+fun getTypography(isDarkTheme: Boolean): Typography {
+    val textColor = if (isDarkTheme) AppColors.Dark.TextColor else AppColors.Light.TextColor
+    return Typography(
+        body1 = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Normal,
+            fontSize = 18.sp,
+            color = textColor
+        ),
+        body2 = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp,
+            color = textColor
+        ),
+        button = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.W500,
+            fontSize = 16.sp,
+            color = textColor
+        ),
+        caption = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Normal,
+            fontSize = 12.sp,
+            color = textColor
+        )
     )
-)
+
+}
 
 object AppTextStyle {
 
@@ -67,17 +75,7 @@ object AppTextStyle {
 
     @Composable
     fun body1Hint() = body1().also {
-        return it.copy(color = it.color.copy(alpha = 0.6f))
-    }
-
-    @Composable
-    fun aaa() {
-        body1().also {
-            it.copy(color = it.color.copy(alpha = 0.8f))
-        }
-        with(body1()) {
-            copy(color = color.copy(alpha = 0.8f))
-        }
+        return it.copy(color = it.color.copy(alpha = ContentAlpha.medium))
     }
 
     @Composable
