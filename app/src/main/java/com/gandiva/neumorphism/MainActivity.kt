@@ -223,7 +223,7 @@ fun CheckBoxAndRadioButtons() {
             onClick = { pressedRadioButtonState = !pressedRadioButtonState })
 
         var flatRadioButtonState by remember {
-            mutableStateOf(true)
+            mutableStateOf(false)
         }
 
         Card(
