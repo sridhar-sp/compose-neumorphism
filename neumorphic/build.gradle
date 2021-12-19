@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'maven-publish'
 }
 
 android {
@@ -10,7 +11,7 @@ android {
         minSdk 21
         targetSdk 31
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -42,18 +43,80 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+
+    libraryVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (outputFile != null && outputFileName.endsWith('release.aar')) {
+                outputFileName = getArtifactName()
+            }
+        }
+    }
+}
+
+def getArtifactName() {
+    return "neumorphic-${android.defaultConfig.versionName}.aar"
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    api 'androidx.core:core-ktx:1.7.0'
+    api "androidx.compose.ui:ui:$compose_version"
+}
 
+publishing {
+    publications {
 
-    testImplementation 'junit:junit:'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+        neumorphic(MavenPublication) {
+            groupId = 'com.gandiva'
+            artifactId = 'neumorphic'
+            version = android.defaultConfig.versionName
+
+            artifact("$buildDir/outputs/aar/${getArtifactName()}")
+
+            pom {
+                name = 'Neumorphic-compose-ui'
+                description = 'Neumorphism design implementation in jetpack compose'
+                url = 'https://github.com/sridhar-sp/compose-neumorphism'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'sridhar-sp'
+                        name = 'Sridhar Subramani'
+                        email = 'sridharthechosenone@gmail.com'
+                    }
+                }
+            }
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode("dependencies")
+                def configurationNames = ["api"]
+                configurationNames.forEach { configurationName ->
+                    configurations[configurationName].allDependencies.forEach {
+                        if (it.group != null && it.name && it.version) {
+                            def dependencyNode = dependenciesNode.appendNode("dependency")
+                            dependencyNode.appendNode("groupId", it.group)
+                            dependencyNode.appendNode("artifactId", it.name)
+                            dependencyNode.appendNode("version", it.version)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        mavenLocal() {}
+        maven {
+            name = "GitHubPackages"
+            def repoName = project.findProperty("GITHUB_REPOSITORY") ?: System.getenv("GITHUB_REPOSITORY")
+            url = uri("https://maven.pkg.github.com/$repoName")
+            credentials {
+                username = project.findProperty("GITHUB_ACTOR") ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("GITHUB_TOKEN") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
 }
