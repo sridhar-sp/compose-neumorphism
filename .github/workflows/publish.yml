@@ -27,4 +27,6 @@ jobs:
     - name: Ls
       run : ls -la
     - name: Publish artifcat to Github package
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew publishNeumorphicPublicationToGitHubPackagesRepository
