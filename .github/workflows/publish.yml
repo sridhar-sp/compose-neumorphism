@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-publish:
 
     runs-on: ubuntu-latest
 
@@ -23,6 +23,8 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew buildRelease
+      run: ./gradlew :neumorphic:assembleRelease
+    - name: Ls
+      run : ls -la
     - name: Publish artifcat to Github package
       run: ./gradlew publishNeumorphicPublicationToGitHubPackagesRepository
