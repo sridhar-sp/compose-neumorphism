@@ -1,5 +1,8 @@
 package com.gandiva.neumorphic
 
+/**
+ * Light source constants with some utils functions.
+ */
 enum class LightSource {
     LEFT_TOP,
     RIGHT_TOP,
