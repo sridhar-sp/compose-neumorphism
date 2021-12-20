@@ -49,14 +49,19 @@ class MainActivity : ComponentActivity() {
                                 .verticalScroll(rememberScrollState()),
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
-                            InputBoxWithCardWrapper()
-                            PlainInputBox()
-                            CheckBoxAndRadioButtons()
-                            PressedSlider()
-                            FlatSlider()
-                            PressedButton()
-                            FlatButton()
-                            CircleActionButton()
+//                            InputBoxWithCardWrapper()
+//                            PlainInputBox()
+//                            CheckBoxAndRadioButtons()
+//                            PressedSlider()
+//                            FlatSlider()
+//                            PressedButton()
+//                            FlatButton()
+//                            CircleActionButton()
+                            Spacer(modifier = Modifier.size(30.dp))
+                            ElevatedExample(LightSource.LEFT_TOP, Pressed(RoundedCorner(24.dp)))
+                            Spacer(modifier = Modifier.size(36.dp))
+                            ElevatedExample(LightSource.LEFT_TOP, Flat(RoundedCorner(24.dp)))
+                            Spacer(modifier = Modifier.size(30.dp))
                         }
                     }
 
@@ -462,73 +467,36 @@ fun ImageButton(
     }
 }
 
-@Preview
 @Composable
-fun Dropdown() {
-    var expanded by remember { mutableStateOf(false) }
-    val items = listOf("A", "B", "C", "D", "E", "F")
-    var selectedIndex by remember { mutableStateOf(0) }
-    Box(
+fun PressedExample() {
+    Card(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(defaultWidgetPadding)
-
-    ) {
-        Button(
-            onClick = { expanded = true }, modifier = Modifier
-                .fillMaxWidth()
-                .neu(
-                    lightShadowColor = AppColors.lightShadow(),
-                    darkShadowColor = AppColors.darkShadow(),
-                    shadowElevation = defaultElevation,
-                    lightSource = LightSource.LEFT_TOP,
-                    shape = Pressed(defaultCornerShape),
-                ),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = MaterialTheme.colors.surface,
+            .size(128.dp)
+            .neu(
+                lightShadowColor = AppColors.lightShadow(),
+                darkShadowColor = AppColors.darkShadow(),
+                shadowElevation = defaultElevation,
+                lightSource = LightSource.LEFT_TOP,
+                shape = Pressed(RoundedCorner(24.dp)),
             ),
-            shape = RoundedCornerShape(12.dp),
-            elevation = null
+        elevation = 0.dp,
+        shape = RoundedCornerShape(24.dp),
+    ) {}
+}
 
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_baseline_android_24),
-                    contentDescription = "Android OS dropdown"
-                )
-                Spacer(modifier = Modifier.size(defaultWidgetPadding))
-                Text(
-                    modifier = Modifier.weight(1f),
-                    text = items[selectedIndex], style = AppTextStyle.button()
-                )
-                DefaultSpacer()
-                Image(
-                    painter = painterResource(
-                        id = if (expanded) R.drawable.ic_baseline_keyboard_arrow_up_24
-                        else R.drawable.ic_baseline_keyboard_arrow_down_24
-                    ),
-                    contentDescription = "Android OS dropdown"
-                )
-            }
-        }
-
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-        ) {
-            items.forEachIndexed { index, value ->
-                DropdownMenuItem(
-                    onClick = {
-                        selectedIndex = index
-                        expanded = false
-                    }) {
-
-                    Text(text = value)
-                }
-            }
-        }
-
-    }
+@Composable
+fun ElevatedExample(lightSource: LightSource, shape: NeuShape) {
+    Card(
+        modifier = Modifier
+            .size(96.dp)
+            .neu(
+                lightShadowColor = AppColors.lightShadow(),
+                darkShadowColor = AppColors.darkShadow(),
+                shadowElevation = defaultElevation,
+                lightSource = lightSource,
+                shape = shape,
+            ),
+        elevation = 0.dp,
+        shape = RoundedCornerShape(24.dp),
+    ) {}
 }
