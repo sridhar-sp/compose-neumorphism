@@ -34,4 +34,7 @@ jobs:
     - name: Publish artifcat to Github package
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID}}
+        SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+        SIGNING_SECRET_KEY: ${{ secrets.SIGNING_SECRET_KEY }}
       run: ./gradlew publishNeumorphicPublicationToGitHubPackagesRepository
