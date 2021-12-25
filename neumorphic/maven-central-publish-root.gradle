@@ -1,0 +1,39 @@
+apply plugin: "io.github.gradle-nexus.publish-plugin"
+
+def secretProps = [:]
+secretProps['stagingProfileId'] = ''
+secretProps['ossrhUsername'] = ''
+secretProps['ossrhPassword'] = ''
+
+File secretPropsFile = project.rootProject.file('secret.properties')
+
+if (secretPropsFile.exists()) {
+    Properties localProps = new Properties()
+    new FileInputStream(secretPropsFile).withCloseable(localProps::load)
+
+    secretProps['stagingProfileId'] = localProps.get('stagingProfileId')
+    secretProps['ossrhUsername'] = localProps.get('ossrhUsername')
+    secretProps['ossrhPassword'] = localProps.get('ossrhPassword')
+} else {
+    secretProps['stagingProfileId'] = System.getenv('STAGING_PROFILE_ID')
+    secretProps['ossrhUsername'] = System.getenv('OSSRH_USERNAME')
+    secretProps['ossrhPassword'] = System.getenv('OSSRH_PASSWORD')
+}
+
+secretProps.each { name, value -> project.ext[name] = value }
+
+group = ext['artifactGroupId'] // Required by nexusPublishing
+version = ext['artifactVersion'] // Required by nexusPublishing
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+
+            stagingProfileId = secretProps['stagingProfileId']
+            username = secretProps['ossrhUsername']
+            password = secretProps['ossrhPassword']
+            version = version
+        }
+    }
+}

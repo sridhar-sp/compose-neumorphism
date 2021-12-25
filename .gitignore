@@ -91,3 +91,5 @@ lint/tmp/
 app/credentials.json
 /app/release/output-metadata.json
 /app/prod/release/
+
+secret.properties

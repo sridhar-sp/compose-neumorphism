@@ -1,0 +1,103 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'org.jetbrains.dokka'
+
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+    from android.sourceSets.main.kotlin.srcDirs
+}
+
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+    archiveClassifier.set('javadoc')
+    from dokkaJavadoc.outputDirectory
+}
+
+artifacts {
+    archives androidSourcesJar
+//    archives javadocJar // Will add it later
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            neumorphic(MavenPublication) {
+                groupId = project.rootProject.ext['artifactGroupId']
+                artifactId = 'neumorphic'
+                version = project.rootProject.ext['artifactVersion']
+
+                from components.release
+
+                artifact androidSourcesJar
+//                artifact javadocJar // Will add it later
+
+                pom {
+                    name = 'Neumorphic-compose-ui'
+                    description = 'Neumorphism design implementation in jetpack compose'
+                    url = 'https://github.com/sridhar-sp/compose-neumorphism'
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'sridhar-sp'
+                            name = 'Sridhar Subramani'
+                            email = 'sridharthechosenone@gmail.com'
+                        }
+                    }
+                    scm {
+                        url = 'https://github.com/sridhar-sp/compose-neumorphism'
+                        connection = 'scm:git:https://github.com/sridhar-sp/compose-neumorphism.git'
+                        developerConnection = 'scm:git:https://github.com/sridhar-sp/compose-neumorphism.git'
+                    }
+                }
+            }
+        }
+        repositories {
+            mavenLocal() {}
+            maven {
+                name = "GitHubPackages"
+                def repoName = System.getenv("GITHUB_REPOSITORY")
+                url = uri("https://maven.pkg.github.com/$repoName")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
+    }
+}
+
+def secretProps = [:]
+secretProps['signing.keyId'] = ''
+secretProps['signing.password'] = ''
+secretProps['signing.secretKey'] = ''
+
+File secretPropsFile = project.rootProject.file('secret.properties')
+
+if (secretPropsFile.exists()) {
+    Properties localProps = new Properties()
+    new FileInputStream(secretPropsFile).withCloseable(localProps::load)
+    secretProps['signing.keyId'] = localProps.get('signing.keyId')
+    secretProps['signing.password'] = localProps.get('signing.password')
+    secretProps['signing.secretKey'] = localProps.get('signing.secretKey')
+} else {
+    secretProps['signing.keyId'] = System.getenv('SIGNING_KEY_ID')
+    secretProps['signing.password'] = System.getenv('SIGNING_PASSWORD')
+    secretProps['signing.secretKey'] = System.getenv('SIGNING_SECRET_KEY')
+}
+
+secretProps.each { name, value -> project.ext[name] = value }
+
+signing {
+    useInMemoryPgpKeys(
+            project.ext['signing.keyId'],
+            project.ext['signing.secretKey'],
+            project.ext['signing.password'],
+    )
+
+    sign publishing.publications
+}
