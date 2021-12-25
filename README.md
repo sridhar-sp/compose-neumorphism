@@ -9,6 +9,13 @@ Dark                       |            Light
 :-------------------------:|:-------------------------:
 ![screen-dark]   |  ![screen-light]
 
+## Install
+You can install `compose-neumorphism` by adding this to your build.gradle file
+``` 
+dependencies {
+  implementation 'io.github.sridhar-sp:neumorphic:0.0.1'
+}
+```
 
 ## Features
 * Draw shadows on widget to bring out the neumorphic design, following neumorphic components are supported.
