@@ -17,7 +17,7 @@ if (secretPropsFile.exists()) {
 } else {
     secretProps['stagingProfileId'] = System.getenv('STAGING_PROFILE_ID')
     secretProps['ossrhUsername'] = System.getenv('OSSRH_USERNAME')
-    secretProps['ossrhPassword'] = System.getenv('OSSRHPASSWORD')
+    secretProps['ossrhPassword'] = System.getenv('OSSRH_PASSWORD')
 }
 
 secretProps.each { name, value -> project.ext[name] = value }
