@@ -2,6 +2,8 @@
 
 Neumorphism design implementation in jetpack compose
 
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.sridhar-sp/neumorphic.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.sridhar-sp%22%20AND%20a:%22neumorphic%22)
+
 
 ## Sample app preview
 
