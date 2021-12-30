@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gandiva.neumorphic.LightSource
+import com.gandiva.neumorphic.NeuAttrs
 import com.gandiva.neumorphic.neu
 import com.gandiva.neumorphic.shape.*
 import com.gandiva.neumorphism.ui.theme.AppColors
@@ -49,19 +50,14 @@ class MainActivity : ComponentActivity() {
                                 .verticalScroll(rememberScrollState()),
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
-//                            InputBoxWithCardWrapper()
-//                            PlainInputBox()
-//                            CheckBoxAndRadioButtons()
-//                            PressedSlider()
-//                            FlatSlider()
-//                            PressedButton()
-//                            FlatButton()
-//                            CircleActionButton()
-                            Spacer(modifier = Modifier.size(30.dp))
-                            ElevatedExample(LightSource.LEFT_TOP, Pressed(RoundedCorner(24.dp)))
-                            Spacer(modifier = Modifier.size(36.dp))
-                            ElevatedExample(LightSource.LEFT_TOP, Flat(RoundedCorner(24.dp)))
-                            Spacer(modifier = Modifier.size(30.dp))
+                            InputBoxWithCardWrapper()
+                            PlainInputBox()
+                            CheckBoxAndRadioButtons()
+                            PressedSlider()
+                            FlatSlider()
+                            PressedButton()
+                            FlatButton()
+                            CircleActionButton()
                         }
                     }
 
@@ -100,6 +96,24 @@ val defaultWidgetPadding = 16.dp
 val defaultElevation = 6.dp
 val defaultCornerShape: CornerShape = RoundedCorner(12.dp)
 
+@Composable
+fun defaultPressedNetAttrs() = NeuAttrs(
+    lightShadowColor = AppColors.lightShadow(),
+    darkShadowColor = AppColors.darkShadow(),
+    shadowElevation = defaultElevation,
+    lightSource = LightSource.LEFT_TOP,
+    shape = Pressed(defaultCornerShape),
+)
+
+@Composable
+fun defaultFlatNeuAttrs() = NeuAttrs(
+    lightShadowColor = AppColors.lightShadow(),
+    darkShadowColor = AppColors.darkShadow(),
+    shadowElevation = defaultElevation,
+    lightSource = LightSource.LEFT_TOP,
+    shape = Flat(defaultCornerShape)
+)
+
 @Preview
 @Composable
 fun InputBoxWithCardWrapper() {
@@ -111,13 +125,7 @@ fun InputBoxWithCardWrapper() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(defaultWidgetPadding)
-            .neu(
-                lightShadowColor = AppColors.lightShadow(),
-                darkShadowColor = AppColors.darkShadow(),
-                shadowElevation = defaultElevation,
-                lightSource = LightSource.LEFT_TOP,
-                shape = Pressed(defaultCornerShape)
-            ),
+            .neu(defaultPressedNetAttrs()),
     ) {
         TextField(
             value = searchText, onValueChange = { searchText = it },
@@ -132,7 +140,6 @@ fun InputBoxWithCardWrapper() {
     }
 }
 
-
 @Preview
 @Composable
 fun PlainInputBox() {
@@ -144,13 +151,7 @@ fun PlainInputBox() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(defaultWidgetPadding)
-            .neu(
-                lightShadowColor = AppColors.lightShadow(),
-                darkShadowColor = AppColors.darkShadow(),
-                shadowElevation = defaultElevation,
-                lightSource = LightSource.LEFT_TOP,
-                shape = Pressed(defaultCornerShape),
-            ),
+            .neu(defaultPressedNetAttrs()),
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
@@ -183,13 +184,7 @@ fun CheckBoxAndRadioButtons() {
         }
         Checkbox(
             modifier = Modifier
-                .neu(
-                    lightShadowColor = AppColors.lightShadow(),
-                    darkShadowColor = AppColors.darkShadow(),
-                    shadowElevation = defaultElevation,
-                    lightSource = LightSource.LEFT_TOP,
-                    shape = Pressed(defaultCornerShape),
-                ),
+                .neu(defaultPressedNetAttrs()),
             checked = pressedStyleCheckBoxState,
             onCheckedChange = { pressedStyleCheckBoxState = it }
         )
@@ -199,13 +194,7 @@ fun CheckBoxAndRadioButtons() {
         }
         Card(
             modifier = Modifier
-                .neu(
-                    lightShadowColor = AppColors.lightShadow(),
-                    darkShadowColor = AppColors.darkShadow(),
-                    shadowElevation = defaultElevation,
-                    lightSource = LightSource.LEFT_TOP,
-                    shape = Flat(defaultCornerShape),
-                )
+                .neu(defaultFlatNeuAttrs())
         ) {
             Checkbox(
                 checked = flatStyleCheckBoxState,
@@ -217,13 +206,7 @@ fun CheckBoxAndRadioButtons() {
         }
         RadioButton(
             modifier = Modifier
-                .neu(
-                    lightShadowColor = AppColors.lightShadow(),
-                    darkShadowColor = AppColors.darkShadow(),
-                    shadowElevation = defaultElevation,
-                    lightSource = LightSource.LEFT_TOP,
-                    shape = Pressed(defaultCornerShape),
-                ),
+                .neu(defaultPressedNetAttrs()),
             selected = pressedRadioButtonState,
             onClick = { pressedRadioButtonState = !pressedRadioButtonState })
 
@@ -233,13 +216,7 @@ fun CheckBoxAndRadioButtons() {
 
         Card(
             modifier = Modifier
-                .neu(
-                    lightShadowColor = AppColors.lightShadow(),
-                    darkShadowColor = AppColors.darkShadow(),
-                    shadowElevation = defaultElevation,
-                    lightSource = LightSource.LEFT_TOP,
-                    shape = Flat(defaultCornerShape),
-                )
+                .neu(defaultFlatNeuAttrs())
         ) {
             RadioButton(
                 selected = flatRadioButtonState,
@@ -258,13 +235,7 @@ fun PressedSlider() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(defaultWidgetPadding)
-            .neu(
-                lightShadowColor = AppColors.lightShadow(),
-                darkShadowColor = AppColors.darkShadow(),
-                shadowElevation = defaultElevation,
-                lightSource = LightSource.LEFT_TOP,
-                shape = Pressed(defaultCornerShape),
-            ),
+            .neu(defaultPressedNetAttrs()),
         value = sliderValue, onValueChange = { sliderValue = it }, valueRange = 0f..12f
     )
 }
@@ -280,13 +251,7 @@ fun FlatSlider() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(defaultWidgetPadding)
-            .neu(
-                lightShadowColor = AppColors.lightShadow(),
-                darkShadowColor = AppColors.darkShadow(),
-                shadowElevation = defaultElevation,
-                lightSource = LightSource.LEFT_TOP,
-                shape = Flat(defaultCornerShape),
-            )
+            .neu(defaultFlatNeuAttrs())
     ) {
         Box(modifier = Modifier.wrapContentSize()) {
             Slider(
@@ -305,13 +270,7 @@ fun PressedButton() {
         onClick = { }, modifier = Modifier
             .fillMaxWidth()
             .padding(defaultWidgetPadding)
-            .neu(
-                lightShadowColor = AppColors.lightShadow(),
-                darkShadowColor = AppColors.darkShadow(),
-                shadowElevation = defaultElevation,
-                lightSource = LightSource.LEFT_TOP,
-                shape = Pressed(defaultCornerShape),
-            ),
+            .neu(defaultPressedNetAttrs()),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.surface,
         ),
@@ -331,13 +290,7 @@ fun FlatButton() {
             .defaultMinSize(minHeight = 80.dp)
             .fillMaxWidth()
             .padding(defaultWidgetPadding)
-            .neu(
-                lightShadowColor = AppColors.lightShadow(),
-                darkShadowColor = AppColors.darkShadow(),
-                shadowElevation = defaultElevation,
-                lightSource = LightSource.LEFT_TOP,
-                shape = Flat(defaultCornerShape),
-            ),
+            .neu(defaultFlatNeuAttrs()),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.surface
         )
@@ -468,6 +421,25 @@ fun ImageButton(
 }
 
 @Composable
+fun PressedSwitch() {
+    var isChecked by remember {
+        mutableStateOf(false)
+    }
+    Switch(
+        checked = isChecked, onCheckedChange = { isChecked = !isChecked },
+        modifier = Modifier.neu(
+            NeuAttrs(
+                lightShadowColor = AppColors.lightShadow(),
+                darkShadowColor = AppColors.darkShadow(),
+                shadowElevation = defaultElevation,
+                lightSource = LightSource.LEFT_TOP,
+                shape = Pressed(RoundedCorner(0.dp)),
+            )
+        )
+    )
+}
+
+@Composable
 fun PressedExample() {
     Card(
         modifier = Modifier
@@ -490,11 +462,13 @@ fun ElevatedExample(lightSource: LightSource, shape: NeuShape) {
         modifier = Modifier
             .size(96.dp)
             .neu(
-                lightShadowColor = AppColors.lightShadow(),
-                darkShadowColor = AppColors.darkShadow(),
-                shadowElevation = defaultElevation,
-                lightSource = lightSource,
-                shape = shape,
+                NeuAttrs(
+                    lightShadowColor = AppColors.lightShadow(),
+                    darkShadowColor = AppColors.darkShadow(),
+                    shadowElevation = defaultElevation,
+                    lightSource = lightSource,
+                    shape = shape,
+                )
             ),
         elevation = 0.dp,
         shape = RoundedCornerShape(24.dp),
