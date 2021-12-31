@@ -2,6 +2,8 @@
 
 Neumorphism design implementation in jetpack compose
 
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.sridhar-sp/neumorphic.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.sridhar-sp%22%20AND%20a:%22neumorphic%22)
+
 
 ## Sample app preview
 
@@ -9,6 +11,13 @@ Dark                       |            Light
 :-------------------------:|:-------------------------:
 ![screen-dark]   |  ![screen-light]
 
+## Install
+You can install `compose-neumorphism` by adding this to your build.gradle file
+``` 
+dependencies {
+  implementation 'io.github.sridhar-sp:neumorphic:0.0.1'
+}
+```
 
 ## Features
 * Draw shadows on widget to bring out the neumorphic design, following neumorphic components are supported.
