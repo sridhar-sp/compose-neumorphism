@@ -15,7 +15,7 @@ Dark                       |            Light
 You can install `compose-neumorphism` by adding this to your build.gradle file
 ``` 
 dependencies {
-  implementation 'io.github.sridhar-sp:neumorphic:0.0.1'
+  implementation 'io.github.sridhar-sp:neumorphic:0.0.6'
 }
 ```
 
