@@ -5,6 +5,12 @@ Neumorphism design implementation in jetpack compose
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.sridhar-sp/neumorphic.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.sridhar-sp%22%20AND%20a:%22neumorphic%22)
 
 
+## What is Neumorphism
+* Neumorphism is a ui design concept which manily uses shadows to create awesome looking UI.
+* Basic design concept from `Neumorphism` are [`Extruded`](#extruded-or-elevated-design) and [`Pressed/Flat`](#pressed-design) style.
+* Neumorphism design concept allows us to represent a objects like how it appear on real world. (like a extruded volume control nob on a media player app) [Ex](https://upload.wikimedia.org/wikipedia/commons/b/b6/Neumorphism.jpg)
+
+
 ## Sample app preview
 
 Dark                       |            Light
@@ -21,8 +27,8 @@ dependencies {
 
 ## Features
 * Draw shadows on widget to bring out the neumorphic design, following neumorphic components are supported.
-  * Elevated view
-  * Pit View
+  * Extruded or Elevated view
+  * Pressed View
 * All the above neumorphic component support two corner shape
   * RoundedCorner
   * Oval
@@ -31,9 +37,9 @@ dependencies {
 ## Usage
 Refer the [sample][sample-app-code-link] app provided for more information.
 
-### Elevated design
+### Extruded or Elevated design
 
-#### Elevated button
+#### Extruded or Elevated button
 
 Dark                       |            Light
 :-------------------------:|:-------------------------:
@@ -86,7 +92,7 @@ Dark                       |            Light
     
 ```
 
-### Pit design
+### Pressed design
 
 #### Pressed button
 
