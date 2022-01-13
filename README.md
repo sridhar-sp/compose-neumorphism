@@ -8,7 +8,7 @@ Neumorphism design implementation in jetpack compose
 ## What is Neumorphism
 * Neumorphism is a ui design concept which manily uses shadows to create awesome looking UI.
 * Basic design concept from `Neumorphism` are [`Extruded`](#extruded-or-elevated-design) and [`Pressed/Flat`](#pressed-design) style.
-* Neumorphism design concept allows us to represent a objects like how it appear on real world. (like a extruded volume control nob on a media player app) [Ex](https://upload.wikimedia.org/wikipedia/commons/b/b6/Neumorphism.jpg)
+* Neumorphism design concept allows us to represent a objects like how it appear on real world. (like a extruded volume control nob on a media player app)
 
 
 ## Sample app preview
