@@ -1,14 +1,17 @@
 # Neumorphism using Jetpack Compose
 
-Neumorphism design implementation in jetpack compose
+Neumorphism design implementation in jetpack compose.
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.sridhar-sp/neumorphic.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.sridhar-sp%22%20AND%20a:%22neumorphic%22)
 
 
 ## What is Neumorphism
-* Neumorphism is a ui design concept which manily uses shadows to create awesome looking UI.
+* Neumorphism is a ui design concept which mainly uses shadows to create awesome looking UI.
 * Basic design concept from `Neumorphism` are [`Extruded`](#extruded-or-elevated-design) and [`Pressed/Flat`](#pressed-design) style.
 * Neumorphism design concept allows us to represent a objects like how it appear on real world. (like a extruded volume control nob on a media player app)
+
+## About this library
+* This library enables android application to create `Neumorphic` design using [`Jetpack Compose`](https://developer.android.com/jetpack/compose)
 
 
 ## Sample app preview
