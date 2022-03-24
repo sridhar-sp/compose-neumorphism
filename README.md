@@ -4,6 +4,7 @@ Neumorphism design implementation in jetpack compose.
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.sridhar-sp/neumorphic.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.sridhar-sp%22%20AND%20a:%22neumorphic%22)
 
+#### Featured on [Google dev library](https://devlibrary.withgoogle.com/products/android/repos/sridhar-sp-compose-neumorphism)
 
 ## What is Neumorphism
 * Neumorphism is a ui design concept which mainly uses shadows to create awesome looking UI.
