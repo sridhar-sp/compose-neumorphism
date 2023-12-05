@@ -9,14 +9,15 @@ buildscript {
     }
     repositories {
         google()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+        gradlePluginPortal()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://maven.pkg.jetbrains.space/public/p/compose/dev" }
         mavenCentral()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.4"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0"
+        classpath "org.jetbrains.compose:compose-gradle-plugin:$compose_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.6.0"
         classpath "io.github.gradle-nexus:publish-plugin:1.1.0"
 
