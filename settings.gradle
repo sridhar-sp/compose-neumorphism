@@ -3,7 +3,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+        maven {
+            url "https://maven.pkg.jetbrains.space/public/p/compose/dev"
+        }
     }
 }
 rootProject.name = "Neumorphism"
