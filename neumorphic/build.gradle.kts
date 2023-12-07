@@ -1,7 +1,73 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
+
 plugins {
-    kotlin("android")
+    kotlin("multiplatform")
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetpack.compose)
+}
+
+kotlin {
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = JavaVersion.VERSION_1_8.toString()
+            }
+        }
+    }
+
+    jvm("desktop") {
+        compilations.all {
+            kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
+        }
+    }
+
+    ios()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "neumorphic"
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                @OptIn(ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
+                implementation(libs.androidx.annotation)
+                implementation(libs.skiko.common)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.compose.ui)
+                implementation(libs.compose.ui.tooling.preview)
+                implementation(libs.androidx.activity.compose)
+            }
+        }
+        val desktopMain by getting {
+            dependencies {
+                implementation(compose.desktop.currentOs)
+            }
+        }
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by getting {
+            dependencies {
+            }
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+        }
+    }
 }
 
 android {
