@@ -7,13 +7,6 @@ buildscript {
         artifactGroupId = "io.github.sridhar-sp"
         artifactVersion = "0.0.6"
     }
-    repositories {
-        google()
-        gradlePluginPortal()
-        maven { url "https://plugins.gradle.org/m2/" }
-        maven { url "https://maven.pkg.jetbrains.space/public/p/compose/dev" }
-        mavenCentral()
-    }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.4"
         classpath "org.jetbrains.compose:compose-gradle-plugin:$compose_version"
