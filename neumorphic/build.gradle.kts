@@ -36,33 +36,32 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material)
+                api(compose.runtime)
+                api(compose.foundation)
+                api(compose.material)
                 @OptIn(ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
-                implementation(libs.androidx.annotation)
-                implementation(libs.skiko.common)
+                api(compose.components.resources)
+                api(libs.androidx.annotation)
+                api(libs.skiko.common)
             }
         }
         val androidMain by getting {
             dependencies {
-                implementation(libs.compose.ui)
-                implementation(libs.compose.ui.tooling.preview)
-                implementation(libs.androidx.activity.compose)
+                api(libs.androidx.core.ktx)
+                api(libs.compose.ui)
+                api(libs.compose.ui.tooling.preview)
+                api(libs.androidx.activity.compose)
             }
         }
         val desktopMain by getting {
             dependencies {
-                implementation(compose.desktop.currentOs)
+                api(compose.desktop.currentOs)
             }
         }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
         val iosMain by getting {
-            dependencies {
-            }
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
@@ -76,8 +75,6 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -115,15 +112,6 @@ android {
 fun getArtifactName(): String {
     val versionName = project.rootProject.extra["artifactVersion"] as String
     return "neumorphic-$versionName.aar"
-}
-
-dependencies {
-    api(libs.androidx.core.ktx)
-    api(libs.compose.ui)
-    api(compose.runtime)
-    api(compose.foundation)
-    api(compose.material)
-    api(libs.compose.ui.tooling.preview)
 }
 
 apply(from = "./publish-android-library.gradle")
