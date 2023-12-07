@@ -63,5 +63,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit)
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation(libs.androidx.espresso.core)
-    debugImplementation(libs.compose.ui.tooling.preview)
+    debugImplementation(libs.compose.ui.tooling)
 }
