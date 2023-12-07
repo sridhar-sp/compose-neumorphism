@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalResourceApi::class)
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,6 +18,8 @@ import com.gandiva.neumorphic.LightSource
 import com.gandiva.neumorphic.NeuAttrs
 import com.gandiva.neumorphic.neu
 import com.gandiva.neumorphic.shape.*
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
 
 @Composable
@@ -27,7 +31,7 @@ fun App() {
         Surface(modifier = Modifier.fillMaxSize()) {
             Column {
                 TitleWithThemeToggle(
-                    title = getString(R.string.app_name),
+                    title = "Neumorphic UI",
                     isDarkTheme = isDarkTheme
                 ) {
                     isDarkTheme = !isDarkTheme
@@ -67,8 +71,8 @@ fun TitleWithThemeToggle(title: String, isDarkTheme: Boolean, onThemeToggle: () 
         )
         ImageButton(
             modifier = Modifier.padding(defaultWidgetPadding),
-            drawableResId = if (isDarkTheme) R.drawable.ic_baseline_light_mode
-            else R.drawable.ic_baseline_dark_mode_24,
+            drawableResId = if (isDarkTheme) "ic_baseline_light_mode.xml"
+            else "ic_baseline_dark_mode_24.xml",
             contentDescription = "Toggle theme",
             onClick = onThemeToggle
         )
@@ -100,7 +104,6 @@ fun defaultFlatNeuAttrs() = NeuAttrs(
     shape = Flat(defaultCornerShape)
 )
 
-@Preview
 @Composable
 fun InputBoxWithCardWrapper() {
     var searchText by remember {
@@ -126,7 +129,6 @@ fun InputBoxWithCardWrapper() {
     }
 }
 
-@Preview
 @Composable
 fun PlainInputBox() {
     var searchText by remember {
@@ -148,7 +150,7 @@ fun PlainInputBox() {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Icon(painter = painterResource(id = R.drawable.ic_baseline_search_24), contentDescription = "Search")
+                Icon(painter = painterResource("ic_baseline_search_24.xml"), contentDescription = "Search")
                 Spacer(modifier = Modifier.size(16.dp))
                 Text(text = "Search", style = AppTextStyle.body1Hint())
             }
@@ -156,7 +158,6 @@ fun PlainInputBox() {
     )
 }
 
-@Preview
 @Composable
 fun CheckBoxAndRadioButtons() {
     Row(
@@ -211,7 +212,6 @@ fun CheckBoxAndRadioButtons() {
     }
 }
 
-@Preview
 @Composable
 fun PressedSlider() {
     var sliderValue by remember {
@@ -226,8 +226,6 @@ fun PressedSlider() {
     )
 }
 
-
-@Preview
 @Composable
 fun FlatSlider() {
     var sliderValue by remember {
@@ -245,11 +243,8 @@ fun FlatSlider() {
             )
         }
     }
-
 }
 
-
-@Preview
 @Composable
 fun PressedButton() {
     Button(
@@ -268,7 +263,6 @@ fun PressedButton() {
     }
 }
 
-@Preview
 @Composable
 fun FlatButton() {
     Button(
@@ -287,7 +281,6 @@ fun FlatButton() {
     }
 }
 
-@Preview
 @Composable
 fun CircleActionButton() {
     val imageSize = 48.dp
@@ -308,7 +301,7 @@ fun CircleActionButton() {
                     lightSource = LightSource.LEFT_TOP,
                     shape = Pressed(Oval),
                 ),
-            painter = painterResource(id = R.drawable.ic_baseline_emoji_events_24),
+            painter = painterResource("ic_baseline_emoji_events_24.xml"),
             contentDescription = "Pressed image 1",
             contentScale = ContentScale.Inside,
             colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
@@ -324,7 +317,7 @@ fun CircleActionButton() {
                     lightSource = LightSource.LEFT_TOP,
                     shape = Pressed(Oval),
                 ),
-            painter = painterResource(id = R.drawable.ic_baseline_thumb_up_24),
+            painter = painterResource("ic_baseline_thumb_up_24.xml"),
             contentDescription = "Pressed image 2",
             contentScale = ContentScale.Inside,
             colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
@@ -346,7 +339,7 @@ fun CircleActionButton() {
             shape = RoundedCornerShape(24.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_baseline_emoji_emotions_24),
+                painter = painterResource("ic_baseline_emoji_emotions_24.xml"),
                 contentDescription = "Flat image 1",
                 contentScale = ContentScale.Inside,
                 colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
@@ -367,7 +360,7 @@ fun CircleActionButton() {
             shape = RoundedCornerShape(24.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_baseline_anchor_24),
+                painter = painterResource("ic_baseline_anchor_24.xml"),
                 contentDescription = "Flat image 2",
                 contentScale = ContentScale.Inside,
                 colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
@@ -379,7 +372,7 @@ fun CircleActionButton() {
 @Composable
 fun ImageButton(
     modifier: Modifier,
-    @DrawableRes drawableResId: Int,
+    drawableResId: String,
     contentDescription: String = "",
     onClick: () -> Unit
 ) {
@@ -398,7 +391,7 @@ fun ImageButton(
     ) {
         Image(
             modifier = Modifier.clickable(true, onClick = onClick),
-            painter = painterResource(id = drawableResId),
+            painter = painterResource(drawableResId),
             contentDescription = contentDescription,
             contentScale = ContentScale.Inside,
             colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
