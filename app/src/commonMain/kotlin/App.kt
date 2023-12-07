@@ -20,6 +20,9 @@ import com.gandiva.neumorphic.neu
 import com.gandiva.neumorphic.shape.*
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import ui.theme.AppColors
+import ui.theme.AppTextStyle
+import ui.theme.NeumorphismTheme
 
 
 @Composable
