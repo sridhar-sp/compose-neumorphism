@@ -2,7 +2,7 @@
 compose = "1.1.0"
 compose-ui = "1.1.0"
 compose-compiler = "1.5.21"
-agp = "7.0.4"
+agp = "8.1.4"
 android-minSdk = "21"
 android-compileSdk = "31"
 android-targetSdk = "31"
