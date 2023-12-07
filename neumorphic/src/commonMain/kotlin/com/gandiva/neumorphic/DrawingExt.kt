@@ -1,6 +1,5 @@
 package com.gandiva.neumorphic
 
-import android.graphics.BlurMaskFilter
 import androidx.annotation.ColorInt
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
@@ -14,6 +13,13 @@ import com.gandiva.neumorphic.shape.CornerShape
 import com.gandiva.neumorphic.shape.NeuShape
 import com.gandiva.neumorphic.shape.Oval
 import com.gandiva.neumorphic.shape.RoundedCorner
+
+
+internal expect fun Any.makeNormalBlur(
+    blurRadius: Float,
+    @ColorInt color: Int,
+    strokeWidth: Float? = null
+)
 
 
 internal fun ContentDrawScope.drawBackgroundShadows(
@@ -44,7 +50,7 @@ private fun ContentDrawScope.drawBlurredBackground(
                 nativePaint.isAntiAlias = true
                 nativePaint.isDither = true
                 nativePaint.color = color
-                nativePaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
+                nativePaint.makeNormalBlur(blurRadius, color)
             }
         }
 
@@ -105,9 +111,7 @@ private fun ContentDrawScope.drawForeground(
             p.asFrameworkPaint().also { nativePaint ->
                 nativePaint.isAntiAlias = true
                 nativePaint.color = color
-                nativePaint.strokeWidth = strokeWidth
-                nativePaint.style = android.graphics.Paint.Style.STROKE
-                nativePaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
+                nativePaint.makeNormalBlur(blurRadius, color, strokeWidth)
             }
         }
 
