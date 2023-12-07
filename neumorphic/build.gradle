@@ -1,5 +1,4 @@
 plugins {
-    id 'org.jetbrains.compose'
     id 'com.android.library'
     id 'kotlin-android'
 }
@@ -59,10 +58,7 @@ def getArtifactName() {
 
 dependencies {
     api 'androidx.core:core-ktx:1.7.0'
-    api compose.ui
-    api compose.runtime
-    api compose.foundation
-    api compose.material
+    api "androidx.compose.ui:ui:$compose_version"
 }
 
 apply from: "./publish-android-library.gradle"
