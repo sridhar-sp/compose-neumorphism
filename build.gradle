@@ -5,7 +5,7 @@ buildscript {
         compose_compiler_extension_version = '1.5.15'
 
         artifactGroupId = "io.github.sridhar-sp"
-        artifactVersion = "0.0.6"
+        artifactVersion = "1.0.0"
     }
     repositories {
         google()
