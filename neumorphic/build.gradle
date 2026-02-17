@@ -4,7 +4,8 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    namespace "com.gandiva.neumorphic"
+    compileSdk 36
 
     defaultConfig {
         minSdk 21

@@ -4,7 +4,8 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    namespace "com.gandiva.neumorphism"
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.gandiva.neumorphism"
